@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+    cursor: none; /* Hide the cursor for a better game feel */
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#0c0a18, #2a2a4a); /* Dark space gradient */
+}
+
+#ui-top {
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
+    z-index: 100;
+}
+
+#game-board {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+#player {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+    bottom: 20px;
+    text-align: center;
+    /* The 'left' property will be set by JavaScript */
+    transform: translateX(-50%); /* Center the emoji horizontally */
+    z-index: 50;
+}
+
+.enemy {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    font-size: 35px;
+    text-align: center;
+    z-index: 40;
+}
+
+.bullet {
+    position: absolute;
+    width: 10px;
+    height: 25px;
+    background-color: #00ffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #00ffff;
+    z-index: 30;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 200;
+    color: white;
+    text-align: center;
+}
+
+.message-box {
+    padding: 30px;
+    border: 2px solid #00ffff;
+    background: rgba(12, 10, 24, 0.8);
+}
+
+.message-box h1 {
+    font-size: 3rem;
+    margin: 0 0 15px 0;
+    color: #f0ad4e;
+}
+
+.message-box h2 {
+    font-size: 2.5rem;
+    margin: 0 0 15px 0;
+    color: #d9534f;
+}
+
+.message-box p {
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.message-box button {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    background-color: #f0ad4e;
+    color: #000;
+    border: 2px solid #000;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.message-box button:hover {
+    background-color: #eea236;
+}
