@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Shooter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="ui-top">
+            SCORE: <span id="score">0</span>
+        </div>
+
+        <div id="game-board">
+            <div id="player">🚀</div>
+        </div>
+
+        <div id="start-screen" class="overlay">
+            <div class="message-box">
+                <h1>Sky Shooter</h1>
+                <p>Move your mouse to control the ship.<br>Click or press Space to shoot.</p>
+                <button id="start-button">START GAME</button>
+            </div>
+        </div>
+
+        <div id="game-over-screen" class="overlay" style="display: none;">
+             <div class="message-box">
+                <h2>GAME OVER</h2>
+                <p>Final Score: <span id="final-score">0</span></p>
+                <button id="restart-button">RESTART</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
