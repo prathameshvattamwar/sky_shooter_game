@@ -117,7 +117,7 @@ html {
   font-size: 40px;
   bottom: 20px;
   text-align: center;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(315deg);
   z-index: 50;
   transition: transform 0.1s ease-out;
 }
