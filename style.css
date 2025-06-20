@@ -1,170 +1,273 @@
 * {
-    box-sizing: border-box;
-    cursor: none; /* Hide the cursor for a better game feel */
+  box-sizing: border-box;
+  cursor: none;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #000;
-    overflow: hidden;
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none !important;
 }
 
 #game-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(#0c0a18, #2a2a4a); /* Dark space gradient */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(#0c0a18, #2a2a4a);
 }
 
+/* --- UI Elements --- */
 #ui-top {
-    padding: 10px 20px;
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #player-lives {
-    font-size: 1.8rem;
-    color: #ff6b6b; /* Red color for hearts */
-    letter-spacing: 5px;
-    text-shadow: 0 0 5px #d9534f;
+  font-size: 1.8rem;
+  color: #ff6b6b;
+  letter-spacing: 5px;
+  text-shadow: 0 0 5px #d9534f;
 }
 
+#boss-health-container {
+  width: 60%;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #ff4d4d;
+  margin: 5px auto;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+#boss-health-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #d9534f, #ff7b7b);
+  border-radius: 8px;
+  transition: width 0.2s ease-in-out;
+}
+
+#achievement-popup {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #f0ad4e, #eea236);
+  color: #000;
+  padding: 15px 30px;
+  border: 3px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 300;
+  animation: fade-in-out 4s ease-in-out;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+.achievement-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+#achievement-text {
+  font-size: 1rem;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    top: -50px;
+  }
+  15% {
+    opacity: 1;
+    top: 20px;
+  }
+  85% {
+    opacity: 1;
+    top: 20px;
+  }
+  100% {
+    opacity: 0;
+    top: -50px;
+  }
+}
+
+/* --- Game Board and Entities --- */
 #game-board {
-    flex-grow: 1;
-    position: relative;
-    overflow: hidden;
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
 }
 
 #player {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    font-size: 40px;
-    bottom: 20px;
-    text-align: center;
-    transform: translateX(-50%); /* Center the emoji horizontally */
-    z-index: 50;
-    transition: transform 0.1s ease-out; /* Smooth transition for shield effect */
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  bottom: 20px;
+  text-align: center;
+  transform: translateX(-50%);
+  z-index: 50;
+  transition: transform 0.1s ease-out;
 }
 
 #player.shielded {
-    animation: pulse-shield 1.5s infinite;
+  animation: pulse-shield 1.5s infinite;
 }
-
 #player.invincible {
-    animation: blink-player 150ms infinite;
+  animation: blink-player 150ms infinite;
 }
 
 @keyframes pulse-shield {
-    0% { filter: drop-shadow(0 0 3px #00ffff); }
-    50% { filter: drop-shadow(0 0 12px #00ffff); }
-    100% { filter: drop-shadow(0 0 3px #00ffff); }
+  0% {
+    filter: drop-shadow(0 0 3px #00ffff);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px #00ffff);
+  }
+  100% {
+    filter: drop-shadow(0 0 3px #00ffff);
+  }
 }
 
 @keyframes blink-player {
-    from { opacity: 1; }
-    to { opacity: 0.4; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
 }
 
 .enemy {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    font-size: 35px;
-    text-align: center;
-    z-index: 40;
-    color: #ff7b7b;
+  position: absolute;
+  text-align: center;
+  z-index: 40;
 }
 
+/* Enemy Types */
+.enemy.grunt {
+  font-size: 35px;
+  color: #ff7b7b;
+}
+.enemy.scout {
+  font-size: 30px;
+  color: #7bff7b;
+}
 .enemy.tank {
-    font-size: 45px;
-    transform: rotate(180deg); /* Flip it upside down */
+  font-size: 45px;
+  transform: rotate(180deg);
+}
+.enemy.boss {
+  font-size: 120px;
+  z-index: 48; /* Above other enemies */
+  filter: drop-shadow(0 0 20px #ff0000);
+  animation: boss-throb 2s infinite;
+}
+
+@keyframes boss-throb {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .bullet {
-    position: absolute;
-    width: 10px;
-    height: 25px;
-    background-color: #00ffff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #00ffff;
-    z-index: 30;
+  position: absolute;
+  width: 10px;
+  height: 25px;
+  background-color: #00ffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #00ffff;
+  z-index: 30;
 }
 
 .powerup {
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    font-size: 30px;
-    text-align: center;
-    z-index: 45;
-    animation: pulse-powerup 1s infinite;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  font-size: 30px;
+  text-align: center;
+  z-index: 45;
+  animation: pulse-powerup 1s infinite;
 }
 
 @keyframes pulse-powerup {
-    0% { filter: drop-shadow(0 0 4px #f0ad4e); transform: scale(1); }
-    50% { filter: drop-shadow(0 0 15px #f0ad4e); transform: scale(1.1); }
-    100% { filter: drop-shadow(0 0 4px #f0ad4e); transform: scale(1); }
+  0% {
+    filter: drop-shadow(0 0 4px #f0ad4e);
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px #f0ad4e);
+    transform: scale(1.1);
+  }
+  100% {
+    filter: drop-shadow(0 0 4px #f0ad4e);
+    transform: scale(1);
+  }
 }
 
+/* --- Overlays --- */
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 200;
-    color: white;
-    text-align: center;
-    cursor: default; /* Show cursor on overlays */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 200;
+  color: white;
+  text-align: center;
+  cursor: default;
 }
-
 .message-box {
-    padding: 30px;
-    border: 2px solid #00ffff;
-    background: rgba(12, 10, 24, 0.8);
+  padding: 30px;
+  border: 2px solid #00ffff;
+  background: rgba(12, 10, 24, 0.8);
 }
-
 .message-box h1 {
-    font-size: 3rem;
-    margin: 0 0 15px 0;
-    color: #f0ad4e;
+  font-size: 3rem;
+  margin: 0 0 15px 0;
+  color: #f0ad4e;
 }
-
 .message-box h2 {
-    font-size: 2.5rem;
-    margin: 0 0 15px 0;
-    color: #d9534f;
+  font-size: 2.5rem;
+  margin: 0 0 15px 0;
+  color: #d9534f;
 }
-
 .message-box p {
-    margin: 15px 0;
-    line-height: 1.5;
+  margin: 15px 0;
+  line-height: 1.5;
 }
-
 .message-box button {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.2rem;
-    background-color: #f0ad4e;
-    color: #000;
-    border: 2px solid #000;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.2rem;
+  background-color: #f0ad4e;
+  color: #000;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
-
 .message-box button:hover {
-    background-color: #eea236;
+  background-color: #eea236;
 }
