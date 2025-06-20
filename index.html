@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Shooter Evolved</title>
+    <title>Sky Shooter: Ascension</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,14 +15,24 @@
             <span>LEVEL: <span id="level">1</span></span>
         </div>
 
+        <div id="boss-health-container" class="hidden">
+            <div id="boss-health-bar"></div>
+        </div>
+
         <div id="game-board">
+            <!-- Dynamic entities (player, enemies, etc.) go here -->
             <div id="player">🚀</div>
+        </div>
+
+        <div id="achievement-popup" class="hidden">
+            <div class="achievement-title">ACHIEVEMENT UNLOCKED</div>
+            <div id="achievement-text"></div>
         </div>
 
         <div id="start-screen" class="overlay">
             <div class="message-box">
-                <h1>Sky Shooter Evolved</h1>
-                <p>Move your mouse to control the ship.<br>Click or press Space to shoot.<br>Collect power-ups (⬆️, 🛡️, 💖) to get stronger!</p>
+                <h1>Sky Shooter: Ascension</h1>
+                <p>Survive escalating waves of enemies.<br>Defeat the Guardian every 10 levels.<br>Good luck, pilot.</p>
                 <button id="start-button">START GAME</button>
             </div>
         </div>
