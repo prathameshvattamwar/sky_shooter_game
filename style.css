@@ -27,6 +27,14 @@ body, html {
     z-index: 100;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+#player-lives {
+    font-size: 1.8rem;
+    color: #ff6b6b; /* Red color for hearts */
+    letter-spacing: 5px;
+    text-shadow: 0 0 5px #d9534f;
 }
 
 #game-board {
@@ -42,7 +50,6 @@ body, html {
     font-size: 40px;
     bottom: 20px;
     text-align: center;
-    /* The 'left' property will be set by JavaScript */
     transform: translateX(-50%); /* Center the emoji horizontally */
     z-index: 50;
     transition: transform 0.1s ease-out; /* Smooth transition for shield effect */
@@ -52,12 +59,20 @@ body, html {
     animation: pulse-shield 1.5s infinite;
 }
 
+#player.invincible {
+    animation: blink-player 150ms infinite;
+}
+
 @keyframes pulse-shield {
     0% { filter: drop-shadow(0 0 3px #00ffff); }
     50% { filter: drop-shadow(0 0 12px #00ffff); }
     100% { filter: drop-shadow(0 0 3px #00ffff); }
 }
 
+@keyframes blink-player {
+    from { opacity: 1; }
+    to { opacity: 0.4; }
+}
 
 .enemy {
     position: absolute;
