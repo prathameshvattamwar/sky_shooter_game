@@ -23,9 +23,10 @@ body, html {
     padding: 10px 20px;
     color: #fff;
     font-size: 1.5rem;
-    text-align: right;
     font-weight: bold;
     z-index: 100;
+    display: flex;
+    justify-content: space-between;
 }
 
 #game-board {
@@ -44,7 +45,19 @@ body, html {
     /* The 'left' property will be set by JavaScript */
     transform: translateX(-50%); /* Center the emoji horizontally */
     z-index: 50;
+    transition: transform 0.1s ease-out; /* Smooth transition for shield effect */
 }
+
+#player.shielded {
+    animation: pulse-shield 1.5s infinite;
+}
+
+@keyframes pulse-shield {
+    0% { filter: drop-shadow(0 0 3px #00ffff); }
+    50% { filter: drop-shadow(0 0 12px #00ffff); }
+    100% { filter: drop-shadow(0 0 3px #00ffff); }
+}
+
 
 .enemy {
     position: absolute;
@@ -53,6 +66,12 @@ body, html {
     font-size: 35px;
     text-align: center;
     z-index: 40;
+    color: #ff7b7b;
+}
+
+.enemy.tank {
+    font-size: 45px;
+    transform: rotate(180deg); /* Flip it upside down */
 }
 
 .bullet {
@@ -63,6 +82,22 @@ body, html {
     border-radius: 5px;
     box-shadow: 0 0 10px #00ffff;
     z-index: 30;
+}
+
+.powerup {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    text-align: center;
+    z-index: 45;
+    animation: pulse-powerup 1s infinite;
+}
+
+@keyframes pulse-powerup {
+    0% { filter: drop-shadow(0 0 4px #f0ad4e); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 15px #f0ad4e); transform: scale(1.1); }
+    100% { filter: drop-shadow(0 0 4px #f0ad4e); transform: scale(1); }
 }
 
 .overlay {
@@ -78,6 +113,7 @@ body, html {
     z-index: 200;
     color: white;
     text-align: center;
+    cursor: default; /* Show cursor on overlays */
 }
 
 .message-box {
